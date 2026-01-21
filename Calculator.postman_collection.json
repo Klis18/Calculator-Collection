@@ -3,8 +3,7 @@
     "_postman_id": "9e6a7553-6393-4dab-8cda-183e29940477",
     "name": "Calculator",
     "description": "\n",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "27102914"
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
     {
@@ -16,20 +15,20 @@
             {
               "listen": "test",
               "script": {
+                "id": "738b4d89-101b-4c48-bf11-8d5dcbf53d79",
                 "exec": [
-                  "const $ = cheerio.load(pm.response.text(), {xmlMode: true});\r",
+                  "const $ = require('cheerio').load(pm.response.text(), {xmlMode: true});\r",
                   "const result = $('AddResult').text();\r",
-                  "console.log(result);\r",
                   "\r",
-                  "pm.test(\"Status code is 200\", function () {\r",
+                  "pm.test('Status code is 200', () => {\r",
                   "    pm.response.to.have.status(200);\r",
                   "});\r",
                   "\r",
-                  "pm.test(\"Add result equal 450\", function () {\r",
+                  "pm.test('Add result equal 450', () => {\r",
                   "    pm.expect(Number(result)).is.eql(450);\r",
                   "});\r",
                   "\r",
-                  "pm.test('XML contains AddResult target ', function(){\r",
+                  "pm.test('Body result contains AddResult target ', () => {\r",
                   "    pm.expect($('AddResult').length).to.be.at.least(1)\r",
                   "});"
                 ],
@@ -37,8 +36,21 @@
                 "packages": {},
                 "requests": {}
               }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "147e778c-f828-4f68-b7dc-d5bceda315e7",
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
             }
           ],
+          "id": "473c0001-ecfc-444b-b733-4275d2595c10",
           "request": {
             "method": "POST",
             "header": [
@@ -73,6 +85,7 @@
           },
           "response": [
             {
+              "id": "711f77b9-d0df-4d92-b531-83d04c0caf5b",
               "name": "Add response",
               "originalRequest": {
                 "method": "POST",
@@ -128,16 +141,42 @@
             {
               "listen": "test",
               "script": {
+                "id": "d0a3451f-56e6-48a0-83a6-40d877cec23a",
                 "exec": [
-                  "pm.test(\"Body contains 3000\", function () {\r",
-                  "    pm.expect(pm.response.text()).to.include(3000);\r",
-                  "});"
+                  "const $ = require('cheerio').load(pm.response.text(), {xmlMode: true});\r",
+                  "const result  = $('SubtractResult').text();\r",
+                  "\r",
+                  "pm.test('Status response is equal 200', () =>{\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Subtract result is equal to 3000', () => {\r",
+                  "    pm.expect(Number(result)).is.eql(3000);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Body response contains SubtractResult target', () => {\r",
+                  "    pm.expect($('SubtractResponse').length).to.have.a.least(1);\r",
+                  "})"
                 ],
                 "type": "text/javascript",
-                "packages": {}
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "3ebd9ada-fbef-433a-9c5e-f65b7392f56f",
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
               }
             }
           ],
+          "id": "70cdc4ed-a378-4373-b141-bb7154d4f4dc",
           "request": {
             "method": "POST",
             "header": [
@@ -171,6 +210,7 @@
           },
           "response": [
             {
+              "id": "0d746b87-3d67-44d9-b33c-7aa319d5bdba",
               "name": "Subtract response",
               "originalRequest": {
                 "method": "POST",
@@ -226,10 +266,35 @@
             {
               "listen": "test",
               "script": {
+                "id": "3ceacbb8-df39-42d7-8ffd-a95e6a77ca2d",
                 "exec": [
-                  "pm.test(\"Body contains result 1000\", function () {\r",
-                  "    pm.expect(pm.response.text()).to.include(1000);\r",
+                  "const $ = require('cheerio').load(pm.response.text(), { amlMode: true});\r",
+                  "const result = $('MultiplyResult').text();\r",
+                  "console.log(result)\r",
+                  "\r",
+                  "pm.test('Status code is 200', () => {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Multiply result is equal to 10000', () => {\r",
+                  "    pm.expect(Number(result)).is.eql(10000);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Body result contains MultiplyResult target', () => {\r",
+                  "    pm.expect($('MultiplyResult').length).to.have.a.least(1);\r",
                   "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "63260293-76a5-46b0-a160-a803d98f5602",
+                "exec": [
+                  ""
                 ],
                 "type": "text/javascript",
                 "packages": {},
@@ -237,6 +302,7 @@
               }
             }
           ],
+          "id": "550e1530-91fc-473d-a069-5209670fe546",
           "request": {
             "method": "POST",
             "header": [
@@ -270,6 +336,7 @@
           },
           "response": [
             {
+              "id": "969f65c6-21d7-4624-87a6-95c85a6a3da6",
               "name": "Multiply response",
               "originalRequest": {
                 "method": "POST",
@@ -325,9 +392,9 @@
             {
               "listen": "test",
               "script": {
+                "id": "4df63343-bb02-42c5-a9ce-1b31787fb0cc",
                 "exec": [
-                  "const $ = cheerio.load(pm.response.text(), { xmlMode: true });\r",
-                  "\r",
+                  "const $ = require('cheerio').load(pm.response.text(), { xmlMode: true });\r",
                   "const result = $('DivideResult').text();\r",
                   "\r",
                   "pm.test(\"Status code es 200\", () => {\r",
@@ -338,7 +405,7 @@
                   "    pm.expect(Number(result)).to.eql(5);\r",
                   "});\r",
                   "\r",
-                  "pm.test(\"El XML contiene la etiqueta de resultado\", () => {\r",
+                  "pm.test(\"Body response contains DivideResult target\", () => {\r",
                   "    pm.expect($('DivideResult').length).to.be.at.least(1);\r",
                   "});"
                 ],
@@ -346,8 +413,21 @@
                 "packages": {},
                 "requests": {}
               }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "521e0a19-83b8-4d60-9279-ac0bad77a080",
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
             }
           ],
+          "id": "98b00005-b6bf-4581-837e-c00a49689ac8",
           "request": {
             "method": "POST",
             "header": [
@@ -381,6 +461,7 @@
           },
           "response": [
             {
+              "id": "57dc4899-afbc-4f35-b4a8-e4e854c4e56e",
               "name": "Divide response",
               "originalRequest": {
                 "method": "POST",
@@ -430,13 +511,15 @@
             }
           ]
         }
-      ]
+      ],
+      "id": "f0905a59-cf9e-43ca-9101-20cad91ef59c"
     },
     {
       "name": "CalculatorSoap12",
       "item": [
         {
           "name": "Add",
+          "id": "76e09606-2399-401e-8249-7f05fa4a3b71",
           "request": {
             "method": "POST",
             "header": [
@@ -471,6 +554,7 @@
           },
           "response": [
             {
+              "id": "4d423308-9d51-4055-8e7a-8a9204d16d76",
               "name": "Add response",
               "originalRequest": {
                 "method": "POST",
@@ -522,6 +606,7 @@
         },
         {
           "name": "Subtract",
+          "id": "35be216f-e671-4746-a9ac-dd8f3effd8bf",
           "request": {
             "method": "POST",
             "header": [
@@ -555,6 +640,7 @@
           },
           "response": [
             {
+              "id": "b3ca109e-a036-409c-9cce-41ebeee37fbf",
               "name": "Subtract response",
               "originalRequest": {
                 "method": "POST",
@@ -606,6 +692,7 @@
         },
         {
           "name": "Multiply",
+          "id": "7c359dac-df7c-48bb-80f6-6244e46978f8",
           "request": {
             "method": "POST",
             "header": [
@@ -639,6 +726,7 @@
           },
           "response": [
             {
+              "id": "434253ac-eb47-4c63-9ab4-5e8540e0377f",
               "name": "Multiply response",
               "originalRequest": {
                 "method": "POST",
@@ -690,6 +778,7 @@
         },
         {
           "name": "Divide",
+          "id": "1ea6f1ab-600b-459c-9502-111e6cd6a52a",
           "request": {
             "method": "POST",
             "header": [
@@ -723,6 +812,7 @@
           },
           "response": [
             {
+              "id": "2721f6fa-10ee-4669-a021-b17cb7ba6c6c",
               "name": "Divide response",
               "originalRequest": {
                 "method": "POST",
@@ -772,16 +862,19 @@
             }
           ]
         }
-      ]
+      ],
+      "id": "a242e4d8-c0f5-4a31-9645-5fa8901ede4e"
     }
   ],
   "variable": [
     {
+      "id": "d1da3f5e-666a-4df4-9981-dc086586dc43",
       "key": "CalculatorSoapBaseUrl",
       "value": "http://www.dneonline.com",
       "type": "any"
     },
     {
+      "id": "a9c73fd0-35e7-4ed9-9f91-2224c5d70e9e",
       "key": "CalculatorSoap12BaseUrl",
       "value": "http://www.dneonline.com",
       "type": "any"
