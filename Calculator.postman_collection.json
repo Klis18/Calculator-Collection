@@ -28,7 +28,7 @@
                   "    pm.expect(Number(result)).is.eql(450);\r",
                   "});\r",
                   "\r",
-                  "pm.test('Body result contains AddResult target ', () => {\r",
+                  "pm.test('Body result contains AddResult tag', () => {\r",
                   "    pm.expect($('AddResult').length).to.be.at.least(1)\r",
                   "});"
                 ],
@@ -154,7 +154,7 @@
                   "    pm.expect(Number(result)).is.eql(3000);\r",
                   "});\r",
                   "\r",
-                  "pm.test('Body response contains SubtractResult target', () => {\r",
+                  "pm.test('Body response contains SubtractResult tag', () => {\r",
                   "    pm.expect($('SubtractResponse').length).to.have.a.least(1);\r",
                   "})"
                 ],
@@ -280,7 +280,7 @@
                   "    pm.expect(Number(result)).is.eql(10000);\r",
                   "});\r",
                   "\r",
-                  "pm.test('Body result contains MultiplyResult target', () => {\r",
+                  "pm.test('Body result contains MultiplyResult tag', () => {\r",
                   "    pm.expect($('MultiplyResult').length).to.have.a.least(1);\r",
                   "});"
                 ],
@@ -405,7 +405,7 @@
                   "    pm.expect(Number(result)).to.eql(5);\r",
                   "});\r",
                   "\r",
-                  "pm.test(\"Body response contains DivideResult target\", () => {\r",
+                  "pm.test(\"Body response contains DivideResult tag\", () => {\r",
                   "    pm.expect($('DivideResult').length).to.be.at.least(1);\r",
                   "});"
                 ],
@@ -519,6 +519,42 @@
       "item": [
         {
           "name": "Add",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "c7715a91-9645-4f98-b972-5a342ac4e7ef",
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "e4a64770-3661-4d4a-81d8-357bb4d04cf4",
+                "exec": [
+                  "const $ = require('cheerio').load(pm.response.text(), {xmlMode: true});\r",
+                  "const result = $('AddResult').text();\r",
+                  "\r",
+                  "pm.test('Status code is 200', () => {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Response time is less than 300ms', () => {\r",
+                  "    pm.expect(pm.response.responseTime).is.below(300);\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
           "id": "76e09606-2399-401e-8249-7f05fa4a3b71",
           "request": {
             "method": "POST",
@@ -534,7 +570,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<soap12:Envelope xmlns:soap12=\"http://www.w3.org/2003/05/soap-envelope\">\n  <soap12:Body>\n    <tns:Add xmlns:tns=\"http://tempuri.org/\">\n      <tns:intA>100</tns:intA>\n      <tns:intB>100</tns:intB>\n    </tns:Add>\n  </soap12:Body>\n</soap12:Envelope>\n",
+              "raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<soap12:Envelope xmlns:soap12=\"http://www.w3.org/2003/05/soap-envelope\">\n  <soap12:Body>\n    <tns:Add xmlns:tns=\"http://tempuri.org/\">\n      <tns:intA>300</tns:intA>\n      <tns:intB>157</tns:intB>\n    </tns:Add>\n  </soap12:Body>\n</soap12:Envelope>\n",
               "options": {
                 "raw": {
                   "language": "xml"
@@ -606,6 +642,46 @@
         },
         {
           "name": "Subtract",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "9d97d073-4b04-4732-ab53-2949b8b8a51a",
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "45ad9ff1-4fe5-404a-bcbb-02d4069dda89",
+                "exec": [
+                  "const $ = require('cheerio').load(pm.response.text(), {xmlMode: true});\r",
+                  "const result = $('SubtractResult').text();\r",
+                  "\r",
+                  "pm.test('Status code is 200', () => {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Subtract result is 70', () => {\r",
+                  "    pm.expect(Number(result)).is.eqls(70);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Response time is less than 250ms', () =>{\r",
+                  "    pm.expect(pm.response.responseTime).is.below(250);\r",
+                  "    console.log('The response time is:', pm.response.responseTime);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
           "id": "35be216f-e671-4746-a9ac-dd8f3effd8bf",
           "request": {
             "method": "POST",
@@ -621,7 +697,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<soap12:Envelope xmlns:soap12=\"http://www.w3.org/2003/05/soap-envelope\">\n  <soap12:Body>\n    <tns:Subtract xmlns:tns=\"http://tempuri.org/\">\n      <tns:intA>100</tns:intA>\n      <tns:intB>100</tns:intB>\n    </tns:Subtract>\n  </soap12:Body>\n</soap12:Envelope>\n",
+              "raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<soap12:Envelope xmlns:soap12=\"http://www.w3.org/2003/05/soap-envelope\">\n  <soap12:Body>\n    <tns:Subtract xmlns:tns=\"http://tempuri.org/\">\n      <tns:intA>500</tns:intA>\n      <tns:intB>430</tns:intB>\n    </tns:Subtract>\n  </soap12:Body>\n</soap12:Envelope>\n",
               "options": {
                 "raw": {
                   "language": "xml"
@@ -692,6 +768,49 @@
         },
         {
           "name": "Multiply",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "92252e71-93a3-44e6-a68e-8566ff3a64e2",
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "cb709c29-5a01-4b8a-a75e-e32b2765ff29",
+                "exec": [
+                  "const $ = require('cheerio').load(pm.response.text(), {xmlMode: true});\r",
+                  "const result = $('MultiplyResult').text();\r",
+                  "\r",
+                  "pm.test('Status code is 200', () => {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Multiply result is 400', () => {\r",
+                  "    pm.expect(Number(result)).is.eql(400);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Body response contains MultiplyResult tag', () => {\r",
+                  "    pm.expect($('MultiplyResult').length).to.have.a.least(1);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Response time is less than 200ms', () => {\r",
+                  "    pm.expect(pm.response.responseTime).is.below(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
           "id": "7c359dac-df7c-48bb-80f6-6244e46978f8",
           "request": {
             "method": "POST",
@@ -707,7 +826,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<soap12:Envelope xmlns:soap12=\"http://www.w3.org/2003/05/soap-envelope\">\n  <soap12:Body>\n    <tns:Multiply xmlns:tns=\"http://tempuri.org/\">\n      <tns:intA>100</tns:intA>\n      <tns:intB>100</tns:intB>\n    </tns:Multiply>\n  </soap12:Body>\n</soap12:Envelope>\n",
+              "raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<soap12:Envelope xmlns:soap12=\"http://www.w3.org/2003/05/soap-envelope\">\n  <soap12:Body>\n    <tns:Multiply xmlns:tns=\"http://tempuri.org/\">\n      <tns:intA>50</tns:intA>\n      <tns:intB>8</tns:intB>\n    </tns:Multiply>\n  </soap12:Body>\n</soap12:Envelope>\n",
               "options": {
                 "raw": {
                   "language": "xml"
@@ -778,6 +897,39 @@
         },
         {
           "name": "Divide",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "7ed7341a-0671-489c-b4ef-bb1b7301d90c",
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "e702af50-b342-4435-b84c-9a4c529039a4",
+                "exec": [
+                  "const $ = require('cheerio').load(pm.response.text(), {xmlMode: true});\r",
+                  "const result = $('DivideResult').text();\r",
+                  "\r",
+                  "pm.test('Status code is 500', () => {\r",
+                  "    pm.response.to.have.status(500);\r",
+                  "});\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
           "id": "1ea6f1ab-600b-459c-9502-111e6cd6a52a",
           "request": {
             "method": "POST",
@@ -793,7 +945,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<soap12:Envelope xmlns:soap12=\"http://www.w3.org/2003/05/soap-envelope\">\n  <soap12:Body>\n    <tns:Divide xmlns:tns=\"http://tempuri.org/\">\n      <tns:intA>100</tns:intA>\n      <tns:intB>100</tns:intB>\n    </tns:Divide>\n  </soap12:Body>\n</soap12:Envelope>\n",
+              "raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<soap12:Envelope xmlns:soap12=\"http://www.w3.org/2003/05/soap-envelope\">\n  <soap12:Body>\n    <tns:Divide xmlns:tns=\"http://tempuri.org/\">\n      <tns:intA>100</tns:intA>\n      <tns:intB>0</tns:intB>\n    </tns:Divide>\n  </soap12:Body>\n</soap12:Envelope>\n",
               "options": {
                 "raw": {
                   "language": "xml"
